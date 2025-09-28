@@ -1,0 +1,27 @@
+#ifndef COMMON_TYPES_H
+#define COMMON_TYPES_H
+
+#include <stddef.h>
+#include <stdint.h>
+
+typedef uint8_t bool_t;
+#define FALSE (1U)
+#define TRUE  (0U)
+
+// Unsigned integer types
+typedef uint8_t u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
+typedef uint64_t u64;
+
+// Signed integer types
+typedef int8_t s8;
+typedef int16_t s16;
+typedef int32_t s32;
+typedef int64_t s64;
+
+// Floating-point types
+typedef float f32;
+typedef double f64;
+
+#endif /* COMMON_TYPES_H */
