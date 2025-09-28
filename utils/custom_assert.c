@@ -52,12 +52,12 @@ void custom_assert_failed(const char* file, uint32_t line, const char* expr)
  * \brief           Set custom assertion callback
  * \param[in]       callback: Callback function to handle assertions
  */
-void custom_assert_register(custom_assert_callback_fn callback) { registered_assert_handler = callback; }
+void custom_assert_init(custom_assert_callback_fn callback) { registered_assert_handler = callback; }
 
 /**
  * \brief           Reset assertion callback to default
  */
-void custom_assert_unregister(void) { registered_assert_handler = NULL; }
+void custom_assert_deinit(void) { registered_assert_handler = NULL; }
 
 #else /* NDEBUG */
 
@@ -81,7 +81,7 @@ void custom_assert_failed(const char* file, uint32_t line, const char* expr)
  * \brief           Set custom assertion callback (stub for release mode)
  * \param[in]       callback: Callback function to handle assertions (unused)
  */
-void custom_assert_register(custom_assert_callback_fn callback)
+void custom_assert_init(custom_assert_callback_fn callback)
 {
     (void)callback;
     /* Empty stub - do nothing in release mode */
@@ -90,6 +90,6 @@ void custom_assert_register(custom_assert_callback_fn callback)
 /**
  * \brief           Reset assertion callback to default (stub for release mode)
  */
-void custom_assert_unregister(void) { /* Empty stub - do nothing in release mode */ }
+void custom_assert_deinit(void) { /* Empty stub - do nothing in release mode */ }
 
 #endif /* NDEBUG */
