@@ -1,0 +1,3 @@
+[submodule "docs/c-code-style"]
+	path = docs/c-code-style
+	url = https://github.com/MaxLell/c-code-style
