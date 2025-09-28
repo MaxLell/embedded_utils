@@ -4,10 +4,10 @@
  */
 
 #include "custom_assert.h"
+#include <stddef.h>
 
 #ifndef NDEBUG
-
-/* Private variables */
+/* Private variables - only needed in debug mode */
 static custom_assert_callback_fn registered_assert_handler = NULL;
 
 /**
@@ -52,14 +52,44 @@ void custom_assert_failed(const char* file, uint32_t line, const char* expr)
  * \brief           Set custom assertion callback
  * \param[in]       callback: Callback function to handle assertions
  */
-void custom_assert_register_assert_failed_callback(custom_assert_callback_fn callback)
-{
-    registered_assert_handler = callback;
-}
+void custom_assert_register(custom_assert_callback_fn callback) { registered_assert_handler = callback; }
 
 /**
  * \brief           Reset assertion callback to default
  */
-void custom_assert_unregister_assert_failed_callback(void) { registered_assert_handler = NULL; }
+void custom_assert_unregister(void) { registered_assert_handler = NULL; }
+
+#else /* NDEBUG */
+
+/* NDEBUG mode - provide empty stub implementations */
+
+/**
+ * \brief           Handle assertion failure (stub for release mode)
+ * \param[in]       file: Source file where assertion failed (unused)
+ * \param[in]       line: Line number where assertion failed (unused)
+ * \param[in]       expr: Expression that failed (unused)
+ */
+void custom_assert_failed(const char* file, uint32_t line, const char* expr)
+{
+    (void)file;
+    (void)line;
+    (void)expr;
+    /* Empty stub - do nothing in release mode */
+}
+
+/**
+ * \brief           Set custom assertion callback (stub for release mode)
+ * \param[in]       callback: Callback function to handle assertions (unused)
+ */
+void custom_assert_register(custom_assert_callback_fn callback)
+{
+    (void)callback;
+    /* Empty stub - do nothing in release mode */
+}
+
+/**
+ * \brief           Reset assertion callback to default (stub for release mode)
+ */
+void custom_assert_unregister(void) { /* Empty stub - do nothing in release mode */ }
 
 #endif /* NDEBUG */

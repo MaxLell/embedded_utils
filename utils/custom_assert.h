@@ -16,8 +16,8 @@ extern "C"
     typedef void (*custom_assert_callback_fn)(const char* file, uint32_t line, const char* expr);
 
     void custom_assert_failed(const char* file, uint32_t line, const char* expr);
-    void custom_assert_register_assert_failed_callback(custom_assert_callback_fn callback);
-    void custom_assert_unregister_assert_failed_callback(void);
+    void custom_assert_register(custom_assert_callback_fn callback);
+    void custom_assert_unregister(void);
 
 #ifndef NDEBUG
 #define ASSERT(expr)                                                                                                   \
