@@ -8,7 +8,7 @@
 #ifndef NDEBUG
 
 /* Private variables */
-static custom_assert_callback_t assert_callback = NULL;
+static custom_assert_callback_fn registered_assert_handler = NULL;
 
 /**
  * \brief           Default assertion handler (fallback)
@@ -38,9 +38,9 @@ static void default_assert_handler(const char* file, uint32_t line, const char* 
  */
 void custom_assert_failed(const char* file, uint32_t line, const char* expr)
 {
-    if (assert_callback != NULL)
+    if (registered_assert_handler != NULL)
     {
-        assert_callback(file, line, expr);
+        registered_assert_handler(file, line, expr);
     }
     else
     {
@@ -52,11 +52,14 @@ void custom_assert_failed(const char* file, uint32_t line, const char* expr)
  * \brief           Set custom assertion callback
  * \param[in]       callback: Callback function to handle assertions
  */
-void custom_assert_set_callback(custom_assert_callback_t callback) { assert_callback = callback; }
+void custom_assert_register_assert_failed_callback(custom_assert_callback_fn callback)
+{
+    registered_assert_handler = callback;
+}
 
 /**
  * \brief           Reset assertion callback to default
  */
-void custom_assert_reset_callback(void) { assert_callback = NULL; }
+void custom_assert_unregister_assert_failed_callback(void) { registered_assert_handler = NULL; }
 
 #endif /* NDEBUG */

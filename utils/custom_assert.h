@@ -13,15 +13,12 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-    /* Type definitions */
-    typedef void (*custom_assert_callback_t)(const char* file, uint32_t line, const char* expr);
+    typedef void (*custom_assert_callback_fn)(const char* file, uint32_t line, const char* expr);
 
-    /* Function prototypes, name aligned, lowercase names */
     void custom_assert_failed(const char* file, uint32_t line, const char* expr);
-    void custom_assert_set_callback(custom_assert_callback_t callback);
-    void custom_assert_reset_callback(void);
+    void custom_assert_register_assert_failed_callback(custom_assert_callback_fn callback);
+    void custom_assert_unregister_assert_failed_callback(void);
 
-    /* Assert macro definitions */
 #ifndef NDEBUG
 #define ASSERT(expr)                                                                                                   \
     do                                                                                                                 \
