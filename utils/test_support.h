@@ -1,0 +1,10 @@
+#ifndef EMBEDDED_UTILS_UTILS_TEST_SUPPORT_H
+#define EMBEDDED_UTILS_UTILS_TEST_SUPPORT_H
+
+#ifdef TEST
+#define STATIC
+#else
+#define STATIC static
+#endif
+
+#endif // EMBEDDED_UTILS_UTILS_TEST_SUPPORT_H
